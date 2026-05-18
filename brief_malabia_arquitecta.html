@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief de Diagnóstico — MALABIA performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ef;
+    --accent: #c8ff00;
+    --gray: #1a1a1a;
+    --mid: #2e2e2e;
+    --muted: #6a6a6a;
+    --border: #2a2a2a;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    padding: 48px 60px 36px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .logo-block .wordmark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .logo-block .sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .doc-meta strong {
+    color: var(--accent);
+    font-weight: 500;
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 64px 60px 52px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: 'BRIEF';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18rem;
+    color: #111;
+    position: absolute;
+    right: -20px;
+    top: -40px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.4rem;
+    letter-spacing: 0.06em;
+    line-height: 1.05;
+    max-width: 560px;
+    position: relative;
+  }
+
+  .hero h1 span {
+    color: var(--accent);
+  }
+
+  .hero p {
+    margin-top: 20px;
+    max-width: 480px;
+    color: #aaa;
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  .hero .pill {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative;
+  }
+
+  /* FORM LAYOUT */
+  .form-body {
+    padding: 0 60px 80px;
+  }
+
+  .section {
+    padding-top: 60px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  .section:first-child { border-top: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .section-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  /* FIELDS */
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .field-grid.full { grid-template-columns: 1fr; }
+  .field-grid.trio { grid-template-columns: 1fr 1fr 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field.span2 { grid-column: span 2; }
+
+  label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  label .req { color: var(--accent); margin-left: 2px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="number"],
+  select,
+  textarea {
+    background: var(--gray);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 300;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    resize: vertical;
+  }
+
+  input::placeholder, textarea::placeholder { color: #444; }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    background: #141414;
+  }
+
+  select {
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6a6a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  select option { background: var(--gray); }
+
+  textarea { min-height: 100px; }
+  textarea.tall { min-height: 140px; }
+
+  /* CHECKBOX GROUP */
+  .check-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: #bbb;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .check-item input { display: none; }
+
+  .check-item:hover { border-color: #444; color: var(--white); }
+
+  .check-item.checked {
+    border-color: var(--accent);
+    background: rgba(200,255,0,0.06);
+    color: var(--white);
+  }
+
+  .check-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .check-item.checked .check-dot { background: var(--accent); }
+
+  /* SCALE */
+  .scale-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--mid);
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(200,255,0,0.12);
+    transition: box-shadow 0.15s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 8px rgba(200,255,0,0.16);
+  }
+
+  .range-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    min-width: 32px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  /* NOTE BOX */
+  .note-box {
+    background: rgba(200,255,0,0.04);
+    border: 1px solid rgba(200,255,0,0.15);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .note-box strong { color: var(--accent); font-weight: 500; }
+
+  /* SUBMIT */
+  .submit-zone {
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .submit-copy {
+    font-size: 0.8rem;
+    color: var(--muted);
+    max-width: 360px;
+    line-height: 1.5;
+  }
+
+  .btn-submit {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    padding: 16px 44px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* SUCCESS */
+  .success-msg {
+    display: none;
+    background: rgba(200,255,0,0.06);
+    border: 1px solid rgba(200,255,0,0.25);
+    border-radius: 10px;
+    padding: 28px 32px;
+    text-align: center;
+    margin-top: 36px;
+  }
+
+  .success-msg h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .success-msg p { font-size: 0.88rem; color: #aaa; }
+
+  /* PRINT ZONE */
+  .print-btn-wrap {
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .btn-print {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    padding: 12px 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-print:hover { background: rgba(200,255,0,0.08); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer .brand { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.14em; color: #333; font-size: 1rem; }
+  footer .tagline { font-size: 0.68rem; color: #3a3a3a; letter-spacing: 0.12em; }
+
+  @media (max-width: 700px) {
+    header, .hero, .form-body, footer { padding-left: 24px; padding-right: 24px; }
+    .hero::before { font-size: 8rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .field-grid { grid-template-columns: 1fr; }
+    .field-grid.trio { grid-template-columns: 1fr 1fr; }
+    .field.span2 { grid-column: span 1; }
+    .submit-zone { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    .btn-submit, .print-btn-wrap, .hero::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <div class="wordmark">MALABIA</div>
+    <div class="sub">performance</div>
+  </div>
+  <div class="doc-meta">
+    <strong>BRIEF DE DIAGNÓSTICO</strong>
+    Documento confidencial — Uso interno
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Tu negocio,<br><span>en foco.</span></h1>
+  <p>Para que trabajemos juntos y tu inversión funcione como un sistema, necesitamos entender exactamente de dónde partimos. Completá este brief con honestidad — no hay respuestas correctas o incorrectas.</p>
+  <div class="pill">Tiempo estimado: 10–15 minutos</div>
+</div>
+
+<div class="form-body">
+  <form id="brief-form">
+
+    <!-- 1. DATOS BÁSICOS -->
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-num">01</div>
+        </div>
+        <div>
+          <div class="section-title">Datos del negocio</div>
+          <div class="section-desc">Información básica para contextualizar la propuesta</div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label>Nombre completo <span class="req">*</span></label>
+          <input type="text" name="nombre" placeholder="Ej: María González" required>
+        </div>
+        <div class="field">
+          <label>Nombre del estudio / marca</label>
+          <input type="text" name="marca" placeholder="Ej: Estudio González Arquitectura">
+        </div>
+        <div class="field">
+          <label>Instagram principal</label>
+          <input type="text" name="instagram" placeholder="@tu_usuario">
+        </div>
+        <div class="field">
+          <label>Sitio web</label>
+          <input type="url" name="web" placeholder="https://...">
+        </div>
+        <div class="field">
+          <label>Email de contacto <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="field">
+          <label>Ubicación / zona de operación</label>
+          <input type="text" name="ubicacion" placeholder="Ej: CABA, GBA Norte">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. EL SERVICIO -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">02</div></div>
+        <div>
+          <div class="section-title">El servicio</div>
+          <div class="section-desc">Qué ofrecés y cómo lo entregás</div>
+        </div>
+      </div>
+
+      <div class="field-grid full" style="gap:24px;">
+        <div class="field">
+          <label>¿Qué servicios ofrecés actualmente? <span class="req">*</span></label>
+          <div class="check-group" id="servicios">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Diseño de interiores"> <span class="check-dot"></span> Diseño de interiores</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Arquitectura residencial"> <span class="check-dot"></span> Arquitectura residencial</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Reformas y remodelaciones"> <span class="check-dot"></span> Reformas y remodelaciones</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Locales comerciales"> <span class="check-dot"></span> Locales comerciales</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Dirección de obra"> <span class="check-dot"></span> Dirección de obra</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Render / visualización 3D"> <span class="check-dot"></span> Render / visualización 3D</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="servicios" value="Consultoría"> <span class="check-dot"></span> Consultoría</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Cuál es el servicio estrella — el que más querés vender?</label>
+          <input type="text" name="servicio_estrella" placeholder="El que más te apasiona y mejor resultado da al cliente">
+        </div>
+
+        <div class="field">
+          <label>¿Qué te diferencia de otros estudios de arquitectura / diseño?</label>
+          <textarea name="diferenciador" placeholder="Pensalo desde el cliente: ¿por qué elegiría trabajar con vos y no con otro?"></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Cuánto dura un proyecto típico con un cliente?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="duracion"> <span class="check-dot"></span> Menos de 1 mes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="duracion"> <span class="check-dot"></span> 1–3 meses</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="duracion"> <span class="check-dot"></span> 3–6 meses</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="duracion"> <span class="check-dot"></span> +6 meses</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. EL CLIENTE IDEAL -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">03</div></div>
+        <div>
+          <div class="section-title">El cliente ideal</div>
+          <div class="section-desc">A quién queremos atraer con la pauta</div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label>Edad aproximada</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> 25–35</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> 35–50</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> 50+</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Perfil económico</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Medio</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Medio-alto</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Alto</label>
+          </div>
+        </div>
+
+        <div class="field span2">
+          <label>¿Cuál es el "problema" que tiene el cliente antes de llegar a vos?</label>
+          <textarea name="problema_cliente" placeholder="Ej: Tiene un departamento que no funciona bien, no sabe cómo reformarlo, no confía en contratistas solos..."></textarea>
+        </div>
+
+        <div class="field span2">
+          <label>Describí a tu cliente ideal en una frase — cómo es, qué valora</label>
+          <input type="text" name="cliente_frase" placeholder="Ej: Pareja joven profesional que compró su primer dpto y quiere que refleje quiénes son">
+        </div>
+
+        <div class="field span2">
+          <label>¿Hay clientes que NO querés atraer? (perfiles que no son rentables o no disfrutan trabajar)</label>
+          <textarea name="cliente_no" placeholder="Ej: Clientes que piden descuentos constantemente, proyectos pequeños sin presupuesto..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SITUACIÓN ACTUAL -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">04</div></div>
+        <div>
+          <div class="section-title">Situación actual</div>
+          <div class="section-desc">Desde dónde arrancamos</div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field span2">
+          <label>¿Cómo conseguiste clientes hasta ahora?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Boca a boca</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Referidos de colegas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Instagram orgánico</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Google</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Pauta pagada</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Portales / Houzz / MercadoLibre</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Otros</label>
+          </div>
+        </div>
+
+        <div class="field span2">
+          <label>¿Cuántos clientes nuevos cerrás por mes (promedio)?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="clientes_mes"> <span class="check-dot"></span> 0–1</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="clientes_mes"> <span class="check-dot"></span> 2–3</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="clientes_mes"> <span class="check-dot"></span> 4–6</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="clientes_mes"> <span class="check-dot"></span> +6</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Cuánto seguidores tenés en Instagram?</label>
+          <input type="number" name="seguidores" placeholder="Número aproximado">
+        </div>
+
+        <div class="field">
+          <label>¿Tenés activo WhatsApp Business?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="wp_biz"> <span class="check-dot"></span> Sí</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="wp_biz"> <span class="check-dot"></span> No</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="wp_biz"> <span class="check-dot"></span> Whatsapp normal</label>
+          </div>
+        </div>
+
+        <div class="field span2">
+          <label>¿Qué pasa cuando un potencial cliente te contacta? ¿Cómo es el proceso?</label>
+          <textarea name="proceso_venta" placeholder="Ej: Me escribe por DM → mando portfolio → agendo reunión → presento propuesta → cierro..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Cuánto tarda en promedio en cerrar un cliente desde el primer contacto?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="tiempo_cierre"> <span class="check-dot"></span> 1–2 días</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="tiempo_cierre"> <span class="check-dot"></span> 1 semana</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="tiempo_cierre"> <span class="check-dot"></span> 2–4 semanas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="tiempo_cierre"> <span class="check-dot"></span> +1 mes</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Hay algo que frena a los potenciales clientes? (objeciones comunes)</label>
+          <textarea name="objeciones" placeholder="Ej: El precio, los tiempos de obra, no saber si el estilo encaja..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONTENIDO AUDIOVISUAL -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">05</div></div>
+        <div>
+          <div class="section-title">Contenido & marca</div>
+          <div class="section-desc">Qué tenés, qué funciona, qué querés mostrar</div>
+        </div>
+      </div>
+
+      <div class="field-grid full" style="gap:24px;">
+        <div class="field">
+          <label>¿Qué tipo de contenido tenés disponible?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Fotos de proyectos terminados</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Videos / recorridos</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Reels ya publicados</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Renders 3D</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Fotos de proceso / obra</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Testimonios de clientes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox"> <span class="check-dot"></span> Fotos personales / de perfil</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Tenés algún contenido que ya funcionó muy bien orgánicamente?</label>
+          <textarea name="contenido_viral" placeholder="Describilo o pegá el link del post. ¿Qué crees que lo hizo funcionar?"></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Cómo definirías el estilo visual de tu marca? ¿Qué palabras la describen?</label>
+          <input type="text" name="estilo_visual" placeholder="Ej: Minimalista, cálido, sofisticado, moderno pero humano...">
+        </div>
+
+        <div class="field">
+          <label>¿Hay referentes (cuentas, estudios, marcas) que admires visualmente?</label>
+          <textarea name="referentes" placeholder="Podés poner nombres o links de Instagram, sitios web, etc."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. OBJETIVOS Y PRESUPUESTO -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">06</div></div>
+        <div>
+          <div class="section-title">Objetivos & presupuesto</div>
+          <div class="section-desc">A dónde queremos llegar y con qué recursos</div>
+        </div>
+      </div>
+
+      <div class="field-grid full" style="gap:24px;">
+        <div class="field">
+          <label>¿Cuál es el objetivo principal para los próximos 3 meses?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="objetivo"> <span class="check-dot"></span> Conseguir más consultas / leads</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="objetivo"> <span class="check-dot"></span> Cerrar más ventas de los leads que ya llegan</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="objetivo"> <span class="check-dot"></span> Posicionarme en un servicio específico</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="objetivo"> <span class="check-dot"></span> Crecer en seguidores calificados</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="objetivo"> <span class="check-dot"></span> Todo lo anterior</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Cuántos clientes nuevos por mes sería un resultado que te parezca un éxito?</label>
+          <input type="text" name="meta_clientes" placeholder="Ej: 2 proyectos nuevos mensuales">
+        </div>
+
+        <div class="field">
+          <label>¿Tenés pensado destinar presupuesto a pauta? Contanos lo que puedas</label>
+          <textarea name="presupuesto" placeholder="No hace falta que sea un número exacto. Podés contarnos si ya tenés algo en mente, si querés que te asesoremos desde cero, o simplemente dejarlo para la reunión."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Tenés alguna fecha límite o momento clave en mente para arrancar?</label>
+          <input type="text" name="fecha_arranque" placeholder="Ej: Antes del verano, en el próximo mes, lo antes posible...">
+        </div>
+
+        <div class="field">
+          <label>¿Hubo experiencias previas con pauta o agencias? ¿Qué pasó?</label>
+          <textarea name="experiencia_previa" placeholder="Si fue mala experiencia, contalo — necesitamos saber qué no querés repetir."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Hay algo más que quieras contarnos antes de arrancar?</label>
+          <textarea class="tall" name="adicional" placeholder="Contexto extra, dudas, lo que sea — acá es el espacio."></textarea>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top: 28px;">
+        <strong>Nota de MALABIA:</strong> Tu inversión en pauta no es un gasto — es un sistema. Para que funcione como tal, toda la info que nos dés acá es materia prima para construir una estrategia que tenga sentido con tu negocio real, no con un template genérico.
+      </div>
+    </div>
+
+    <!-- ESCALA DE URGENCIA -->
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-num">07</div></div>
+        <div>
+          <div class="section-title">Urgencia & compromiso</div>
+          <div class="section-desc">Nos ayuda a priorizar y arrancar bien</div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label>¿Qué tan urgente es para vos arrancar? (1 = no hay apuro / 10 = ayer)</label>
+          <div class="scale-row">
+            <input type="range" min="1" max="10" value="5" id="urgencia-range" oninput="document.getElementById('urgencia-val').textContent = this.value">
+            <div class="range-val" id="urgencia-val">5</div>
+          </div>
+          <div class="scale-labels"><span>Sin apuro</span><span>Urgente</span></div>
+        </div>
+
+        <div class="field">
+          <label>¿Qué tan involucrada querés estar en la estrategia del día a día?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="nivel_inv"> <span class="check-dot"></span> Quiero estar en todo</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="nivel_inv"> <span class="check-dot"></span> Solo en decisiones grandes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="radio" name="nivel_inv"> <span class="check-dot"></span> Delegar casi todo</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-zone">
+      <div class="submit-copy">
+        Una vez que lo enviés, te contactamos en menos de 48 hs para coordinar un diagnóstico inicial gratuito.
+      </div>
+      <button type="button" class="btn-submit" onclick="submitBrief()">ENVIAR BRIEF →</button>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <h3>✓ Brief recibido</h3>
+      <p>Gracias. Revisamos todo y te contactamos en menos de 48 hs para el diagnóstico inicial.</p>
+    </div>
+    <div class="print-btn-wrap" id="print-btn-wrap">
+      <button class="btn-print" onclick="window.print()">IMPRIMIR / GUARDAR PDF</button>
+    </div>
+
+  </form>
+</div>
+
+<footer>
+  <div class="brand">MALABIA performance</div>
+  <div class="tagline">Tu inversión no es un gasto. Es un sistema.</div>
+</footer>
+
+<script>
+  function toggleCheck(el) {
+    const input = el.querySelector('input');
+    if (input.type === 'checkbox') {
+      input.checked = !input.checked;
+      el.classList.toggle('checked', input.checked);
+    } else {
+      // radio: uncheck siblings
+      const group = input.name;
+      if (group) {
+        document.querySelectorAll(`input[name="${group}"]`).forEach(r => {
+          r.closest('label.check-item')?.classList.remove('checked');
+        });
+      }
+      input.checked = true;
+      el.classList.add('checked');
+    }
+  }
+
+  async function submitBrief() {
+    const nombre = document.querySelector('[name="nombre"]').value.trim();
+    const email = document.querySelector('[name="email"]').value.trim();
+
+    if (!nombre || !email) {
+      alert('Por favor completá al menos tu nombre y email para enviar el brief.');
+      return;
+    }
+
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'ENVIANDO...';
+    btn.disabled = true;
+
+    const formData = new FormData(document.getElementById('brief-form'));
+    formData.set('_subject', 'Brief MALABIA — ' + nombre);
+    formData.set('_cc', 'ignaciomaclaughlin25@gmail.com');
+    formData.set('urgencia', document.getElementById('urgencia-val').textContent);
+
+    // Recolectar checkboxes/radios visualmente seleccionados
+    document.querySelectorAll('label.check-item.checked').forEach(el => {
+      const input = el.querySelector('input');
+      if (input && input.name) {
+        formData.append('sel_' + input.name, el.textContent.trim());
+      }
+    });
+
+    try {
+      const res = await fetch('https://formspree.io/f/xvzyojqr', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        document.getElementById('success-msg').style.display = 'block';
+        document.getElementById('print-btn-wrap').style.display = 'flex';
+        btn.style.display = 'none';
+        document.getElementById('success-msg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        btn.textContent = 'ENVIAR BRIEF →';
+        btn.disabled = false;
+        alert('Hubo un error al enviar. Intentá de nuevo o escribinos directamente.');
+      }
+    } catch (e) {
+      btn.textContent = 'ENVIAR BRIEF →';
+      btn.disabled = false;
+      alert('Sin conexión. Revisá tu internet e intentá de nuevo.');
+    }
+  }
+</script>
+</body>
+</html>
